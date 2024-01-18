@@ -94,7 +94,7 @@ public class FrontEnd {
 		backend.getUserInfo(uid).closeSession(sid);
 	}
 
-	// * Freeze his/her own user account
+	// * Freeze own user account
 	public Boolean USER_freezeUser(Integer uid, Integer sid) {
 		UserInfo u = backend.getUserInfo(uid);
 		u.getSession(sid).log("Freeze account");
@@ -102,7 +102,7 @@ public class FrontEnd {
 		return true;
 	}
 
-	// * Unfreeze his/her own user account
+	// * Unfreeze own user account
 	public Boolean USER_unfreezeUser(Integer uid, Integer sid) {
 		UserInfo u = backend.getUserInfo(uid);
 		UserSession s = u.getSession(sid);
@@ -121,9 +121,7 @@ public class FrontEnd {
 		UserSession s = u.getSession(sid);
 		String account_number = u.createAccount(sid);
 		s.log("Request new account with number <" + account_number + ">");
-
 		return (account_number);
-
 	}
 
 	// * Close an existing money account
