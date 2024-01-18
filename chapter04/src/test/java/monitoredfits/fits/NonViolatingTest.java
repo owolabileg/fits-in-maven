@@ -5,11 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class NonViolatingTest extends BaseTest {
-    @Before
-    public void reset() {
-        Verification.setupVerification();
-        transactionsystem.setup();
-    }
     @Test
     public void testOnlyUsersInArgentinaCanBeGold() {
         frontend.ADMIN_initialise();
