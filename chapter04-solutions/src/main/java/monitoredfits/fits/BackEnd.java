@@ -12,7 +12,7 @@ public class BackEnd {
 
 	// Constructor
 	public BackEnd() {
-		users = new ArrayList<UserInfo>();
+		users = new ArrayList<>();
 		next_user_id = 1;
 		initialised = false;
 	}
@@ -27,8 +27,8 @@ public class BackEnd {
 	public void initialise() {
 		Verification.fitsInitialisation();
 
-		users = new ArrayList<UserInfo>();
-		next_user_id = 1;
+		users = new ArrayList<>();
+		next_user_id = 0;
 		initialised = true;
 
 		Integer admin_uid = addUser("Clark Kent", "Malta");

@@ -12,6 +12,10 @@ public class FrontEnd {
 		backend = be;
 	}
 
+	public BackEnd getBackEnd() {
+		return backend;
+	}
+
 	// ADMINistrator methods
 	// * Initialise the transaction system
 	public void ADMIN_initialise() {
@@ -33,11 +37,17 @@ public class FrontEnd {
 
 	// * Enable a user
 	public void ADMIN_enableUser(Integer uid) {
+
+		Verification.userMakeEnabled(backend.getUserInfo(uid));
+
 		backend.getUserInfo(uid).makeEnabled();
 	}
 
 	// * Disable a user (initially disabled)
 	public void ADMIN_disableUser(Integer uid) {
+
+		Verification.userMakeDisabled(backend.getUserInfo(uid));
+
 		backend.getUserInfo(uid).makeDisabled();
 	}
 
@@ -69,6 +79,8 @@ public class FrontEnd {
 
 	// * Approve the opening of an account
 	public void ADMIN_approveOpenAccount(Integer uid, String accnum) {
+		Verification.fitsAdminApprovingAccount(accnum, backend);
+
 		backend.getUserInfo(uid).getAccount(accnum).enableAccount();
 	}
 
@@ -102,7 +114,7 @@ public class FrontEnd {
 		return true;
 	}
 
-	// * Unfreeze his/her own user account
+	// * Unfreeze own user account
 	public Boolean USER_unfreezeUser(Integer uid, Integer sid) {
 		UserInfo u = backend.getUserInfo(uid);
 		UserSession s = u.getSession(sid);
@@ -121,6 +133,8 @@ public class FrontEnd {
 		UserSession s = u.getSession(sid);
 		String account_number = u.createAccount(sid);
 		s.log("Request new account with number <" + account_number + ">");
+
+		Verification.sessionRequestAccount(s);
 		return (account_number);
 	}
 
@@ -138,6 +152,7 @@ public class FrontEnd {
 		UserSession s = u.getSession(sid);
 		s.log("Deposit $" + amount + "to account <" + accnumDst + ">");
 		u.depositTo(accnumDst, amount);
+		Verification.userIncomingTransfer(u);
 	}
 
 	// * Pay a bill (i.e. an external money account) - charges apply
@@ -162,7 +177,7 @@ public class FrontEnd {
 
 	// * Transfer money to another user's account - charges apply
 	public Boolean USER_transferToOtherAccount(Integer uidSrc, Integer sidSrc, String accnumSrc, Integer uidDst,
-			String accnumDst, Double amount) {
+											   String accnumDst, Double amount) {
 		UserInfo from_u = backend.getUserInfo(uidSrc);
 		UserSession s = from_u.getSession(sidSrc);
 
@@ -185,7 +200,7 @@ public class FrontEnd {
 
 	// * Transfer money across own accounts - charges do not apply
 	public Boolean USER_transferOwnAccounts(Integer uid, Integer sid, String from_account_number,
-			String to_account_number, Double amount) {
+											String to_account_number, Double amount) {
 		UserInfo u = backend.getUserInfo(uid);
 		UserSession s = u.getSession(sid);
 		BankAccount from_a = backend.getUserInfo(uid).getAccount(from_account_number),
@@ -202,5 +217,4 @@ public class FrontEnd {
 				+ "> to own account <" + to_account_number);
 		return false;
 	}
-
 }

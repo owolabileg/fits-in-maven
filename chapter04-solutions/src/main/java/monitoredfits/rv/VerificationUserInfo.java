@@ -1,6 +1,6 @@
 package monitoredfits.rv;
 
-import assertion.Assertion;
+import monitoredfits.assertion.Assertion;
 
 public class VerificationUserInfo {
 	// Property 5

@@ -1,5 +1,7 @@
 package monitoredfits.fits;
 
+import monitoredfits.rv.Verification;
+
 public class UserSession {
 	protected Integer sid;
 	protected String log;
@@ -24,13 +26,18 @@ public class UserSession {
 	}
 
 	public void openSession() {
+		Verification.sessionOpen(this);
 	}
 
 	public void log(String l) {
+		Verification.sessionLogInformation(this);
+
 		log += l + "\n";
 	}
 
 	public void closeSession() {
+		Verification.sessionClose(this);
 	}
 
 }
+

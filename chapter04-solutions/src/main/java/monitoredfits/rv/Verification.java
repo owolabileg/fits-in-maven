@@ -1,14 +1,19 @@
 package monitoredfits.rv;
 
+import java.util.HashMap;
+
 import monitoredfits.assertion.Assertion;
+import monitoredfits.fits.BackEnd;
 import monitoredfits.fits.BankAccount;
 import monitoredfits.fits.UserInfo;
+import monitoredfits.fits.UserSession;
 
 public class Verification {
-
 	public static void setupVerification() {
 		setupVerificationGlobal1();
 		setupVerificationGlobal2();
+		setupVerificationPerUser();
+		setupVerificationPerSession();
 	}
 
 	// Property 1 verification code
@@ -46,6 +51,21 @@ public class Verification {
 		Assertion.check(a.getBalance() >= 0, "P3 violated");
 	}
 
+	// Property 4 verification
+	// A bank account approved by the administrator may not have the same account
+	// number as any other bank account already existing in the system
+
+	// called from FrontEnd.ADMIN_approveOpenAccount
+	public static void fitsAdminApprovingAccount(String new_account_number, BackEnd fits) {
+		for (UserInfo user : fits.getUsers()) {
+			for (BankAccount account : user.getAccounts()) {
+				if (account.isOpen()) {
+					Assertion.check(!account.getAccountNumber().equals(new_account_number), "P4 violated");
+				}
+			}
+		}
+	}
+
 	// Property 8
 	// The administrator must reconcile accounts every 1000 attempted outgoing
 	// external money transfers
@@ -73,5 +93,97 @@ public class Verification {
 		fitsExternalMoneyTransferAmount += amount;
 		Assertion.check(fitsExternalMoneyTransferCount < 1000 && fitsExternalMoneyTransferAmount < 1000000.00,
 				"P8 violated");
+	}
+
+	// Property 5 verification
+	// Once a user is disabled, he or she may not withdraw from an account until
+	// the administrator enables them again
+
+	// Solution trusting information kept in UserInfo object
+	// Which doesn't work in this case, since Unfreezing an account, incorrectly
+	// enables the user
+	public static void userWithdrawal_SOLUTION_1(UserInfo u) {
+		Assertion.check(u.isEnabled(), "P5 violated");
+	}
+
+	// Alternative solution not trusting information kept in UserInfo object
+
+	public static HashMap<UserInfo, VerificationUserInfo> userVerifier = new HashMap<>();
+
+	public static void setupVerificationPerUser() {
+		userVerifier = new HashMap<>();
+	}
+
+	// called from FrontEnd.ADMIN_disableUser
+	public static void userMakeDisabled(UserInfo u) {
+		userVerifier.computeIfAbsent(u, k -> new VerificationUserInfo()).userMakeDisabled();
+	}
+
+	// called from FrontEnd.ADMIN_enableUser
+	public static void userMakeEnabled(UserInfo u) {
+		userVerifier.computeIfAbsent(u, k -> new VerificationUserInfo()).userMakeEnabled();
+	}
+
+	public static void userWithdrawal_SOLUTION_2(UserInfo u) {
+		userVerifier.computeIfAbsent(u, k -> new VerificationUserInfo()).userWithdrawal();
+	}
+
+	// Property 6 verification
+	// Once greylisted, a user must perform at least three incoming transfers before
+	// being whitelisted
+
+	public static void userIncomingTransfer(UserInfo u) {
+		userVerifier.computeIfAbsent(u, k -> new VerificationUserInfo()).userIncomingTransfer();
+	}
+
+	public static void userMakeWhitelisted(UserInfo u) {
+		userVerifier.computeIfAbsent(u, k -> new VerificationUserInfo()).userMakeWhitelisted();
+	}
+
+	public static void userMakeGreylisted(UserInfo u) {
+		userVerifier.computeIfAbsent(u, k -> new VerificationUserInfo()).userMakeGreylisted();
+	}
+
+	public static void userMakeBlacklisted(UserInfo u) {
+		userVerifier.computeIfAbsent(u, k -> new VerificationUserInfo()).userMakeBlacklisted();
+	}
+
+	// Property 9 verification
+	// A user may not have more than 3 active sessions at any point in time
+	public static void userOpenSession(UserInfo u) {
+		userVerifier.computeIfAbsent(u, k -> new VerificationUserInfo()).userOpenSession();
+	}
+
+	public static void userCloseSession(UserInfo u) {
+		userVerifier.computeIfAbsent(u, k -> new VerificationUserInfo()).userCloseSession();
+	}
+
+	// Property 7 verification
+	// No user may request more than 10 new accounts in a single session
+	public static HashMap<UserSession, VerificationSessionInfo> sessionVerifier = new HashMap<>();
+
+	public static void setupVerificationPerSession() {
+		sessionVerifier = new HashMap<>();
+	}
+
+	// called from FrontEnd.USER_requestAccount
+	public static void sessionRequestAccount(UserSession s) {
+		sessionVerifier.computeIfAbsent(s, k -> new VerificationSessionInfo()).sessionRequestAccount();
+	}
+
+	// Property 10
+	// Logging can only be made to an active session (i.e. between a login and a
+	// logout)
+
+	public static void sessionOpen(UserSession s) {
+		sessionVerifier.computeIfAbsent(s, k -> new VerificationSessionInfo()).sessionOpen();
+	}
+
+	public static void sessionClose(UserSession s) {
+		sessionVerifier.computeIfAbsent(s, k -> new VerificationSessionInfo()).sessionClose();
+	}
+
+	public static void sessionLogInformation(UserSession s) {
+		sessionVerifier.computeIfAbsent(s, k -> new VerificationSessionInfo()).sessionLogInformation();
 	}
 }

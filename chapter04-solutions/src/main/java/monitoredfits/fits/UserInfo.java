@@ -38,8 +38,8 @@ public class UserInfo {
 		makeWhitelisted();
 		makeNormalUser();
 
-		sessions = new ArrayList<UserSession>();
-		accounts = new ArrayList<BankAccount>();
+		sessions = new ArrayList<>();
+		accounts = new ArrayList<>();
 
 		next_session_id = 0;
 		next_account_number = 1;
@@ -109,14 +109,17 @@ public class UserInfo {
 	}
 
 	public void makeBlacklisted() {
+		Verification.userMakeBlacklisted(this);
 		status = UserStatus.BLACKLISTED;
 	}
 
 	public void makeGreylisted() {
+		Verification.userMakeGreylisted(this);
 		status = UserStatus.GREYLISTED;
 	}
 
 	public void makeWhitelisted() {
+		Verification.userMakeWhitelisted(this);
 		status = UserStatus.WHITELISTED;
 	}
 
@@ -170,6 +173,8 @@ public class UserInfo {
 
 		next_session_id++;
 
+		Verification.userOpenSession(this);
+
 		return (sid);
 	}
 
@@ -177,6 +182,7 @@ public class UserInfo {
 		UserSession s = getSession(sid);
 
 		s.closeSession();
+		Verification.userCloseSession(this);
 	}
 
 	// User accounts
@@ -206,6 +212,9 @@ public class UserInfo {
 	}
 
 	public void withdrawFrom(String account_number, double amount) {
+		Verification.userWithdrawal_SOLUTION_1(this);
+		Verification.userWithdrawal_SOLUTION_2(this);
+
 		getAccount(account_number).withdraw(amount);
 	}
 
