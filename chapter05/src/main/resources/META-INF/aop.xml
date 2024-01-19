@@ -1,0 +1,6 @@
+<aspectj>
+    <aspects>
+<!--        <aspect name="monitoredfits.rv.Properties"/>-->
+        <weaver options="-verbose -showWeaveInfo"></weaver>
+    </aspects>
+</aspectj>
