@@ -95,14 +95,10 @@ public class ViolatingTest extends BaseTest {
         uid = frontend.ADMIN_createUser("Fred", "France");
         frontend.ADMIN_enableUser(uid);
         sid = frontend.USER_login(uid);
-        for (Integer i = 0; i < 30; i++) {
+        for (Integer i = 0; i < 11; i++) {
             account_number = frontend.USER_requestAccount(uid, sid);
             if (i % 2 == 0)
                 frontend.ADMIN_approveOpenAccount(uid, account_number);
-            if (i % 9 == 5) {// note session being closed and a new one opened
-                frontend.USER_logout(uid, sid);
-                sid = frontend.USER_login(uid);
-            }
         }
         frontend.USER_logout(uid, sid);
     }

@@ -10,7 +10,7 @@ public class BackEnd {
 
 	// Constructor
 	public BackEnd() {
-		users = new ArrayList<UserInfo>();
+		users = new ArrayList<>();
 		next_user_id = 1;
 		initialised = false;
 	}
@@ -23,7 +23,7 @@ public class BackEnd {
 	// Initialise the transaction system with a single admin user
 	// called Clark Kent from Malta
 	public void initialise() {
-		users = new ArrayList<UserInfo>();
+		users = new ArrayList<>();
 		next_user_id = 0;
 		initialised = true;
 

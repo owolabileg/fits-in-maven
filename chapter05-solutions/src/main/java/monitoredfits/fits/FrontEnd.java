@@ -9,6 +9,10 @@ public class FrontEnd {
 		backend = be;
 	}
 
+	public BackEnd getBackEnd() {
+		return backend;
+	}
+
 	// ADMINistrator methods
 	// * Initialise the transaction system
 	public void ADMIN_initialise() {
@@ -98,7 +102,7 @@ public class FrontEnd {
 		return true;
 	}
 
-	// * Unfreeze his/her own user account
+	// * Unfreeze own user account
 	public Boolean USER_unfreezeUser(Integer uid, Integer sid) {
 		UserInfo u = backend.getUserInfo(uid);
 		UserSession s = u.getSession(sid);
@@ -119,7 +123,6 @@ public class FrontEnd {
 		s.log("Request new account with number <" + account_number + ">");
 
 		return (account_number);
-
 	}
 
 	// * Close an existing money account
@@ -158,7 +161,7 @@ public class FrontEnd {
 
 	// * Transfer money to another user's account - charges apply
 	public Boolean USER_transferToOtherAccount(Integer uidSrc, Integer sidSrc, String accnumSrc, Integer uidDst,
-			String accnumDst, Double amount) {
+											   String accnumDst, Double amount) {
 		UserInfo from_u = backend.getUserInfo(uidSrc);
 		UserSession s = from_u.getSession(sidSrc);
 
@@ -181,7 +184,7 @@ public class FrontEnd {
 
 	// * Transfer money across own accounts - charges do not apply
 	public Boolean USER_transferOwnAccounts(Integer uid, Integer sid, String from_account_number,
-			String to_account_number, Double amount) {
+											String to_account_number, Double amount) {
 		UserInfo u = backend.getUserInfo(uid);
 		UserSession s = u.getSession(sid);
 		BankAccount from_a = backend.getUserInfo(uid).getAccount(from_account_number),
@@ -198,5 +201,4 @@ public class FrontEnd {
 				+ "> to own account <" + to_account_number);
 		return false;
 	}
-
 }
