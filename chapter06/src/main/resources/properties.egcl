@@ -1,6 +1,6 @@
 VERIFICATIONCODE
 
-package rv;
+package monitoredfits.rv;
 
 public class Verification {
 
@@ -24,11 +24,11 @@ public static Boolean isInitialised() {
 
 PRELUDE
 
-package rv;
+package monitoredfits.rv;
 
-import assertion.Assertion;
-import fits.BackEnd;
-import fits.UserInfo;
+import monitoredfits.assertion.Assertion;
+import monitoredfits.fits.BackEnd;
+import monitoredfits.fits.UserInfo;
 
 RULES
 
