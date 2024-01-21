@@ -18,6 +18,7 @@
         <module>chapter05-inlined-solutions</module>
         <module>chapter06</module>
         <module>generator</module>
+        <module>chapter06-solutions</module>
     </modules>
 
     <dependencies>
