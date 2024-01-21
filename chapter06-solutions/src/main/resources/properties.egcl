@@ -1,6 +1,6 @@
 VERIFICATIONCODE
 
-package rv;
+package monitoredfits.rv;
 
 import monitoredfits.assertion.Assertion;
 import monitoredfits.fits.BackEnd;
@@ -50,7 +50,7 @@ public class Verification {
 
 PRELUDE
 
-package rv;
+package monitoredfits.rv;
 
 import monitoredfits.assertion.Assertion;
 import monitoredfits.fits.BankAccount;

@@ -1,0 +1,52 @@
+VERIFICATIONCODE
+
+package monitoredfits.rv;
+
+import java.util.HashMap;
+
+import monitoredfits.assertion.Assertion;
+import monitoredfits.fits.BackEnd;
+import monitoredfits.fits.BankAccount;
+import monitoredfits.fits.UserInfo;
+
+public class Verification {
+
+}
+
+PRELUDE
+
+package monitoredfits.rv;
+
+import java.util.HashMap;
+
+import monitoredfits.assertion.Assertion;
+import monitoredfits.fits.BackEnd;
+import monitoredfits.fits.BankAccount;
+import monitoredfits.fits.FrontEnd;
+import monitoredfits.fits.UserInfo;
+import monitoredfits.fits.UserSession;
+
+RULES
+
+// P6
+foreach target (UserInfo u) keep (Boolean greylisted defaultTo false, Integer countTransfers defaultTo 0)
+{
+	UserInfo.makeGreylisted(..) target (UserInfo u) | -> {
+		greylisted = true;
+		countTransfers = 0;
+	}
+	UserInfo.depositTo(..) target (UserInfo u) | -> {
+		if (greylisted)
+			countTransfers = countTransfers + 1;
+	}
+	UserInfo.makeWhitelisted(..) target (UserInfo u)
+	  |  ( greylisted && countTransfers < 3 )
+	  -> { Assertion.alert("P6 violated"); }
+
+	UserInfo.makeWhitelisted(..) target (UserInfo u)
+	  | -> { greylisted = false; }
+}
+
+
+
+

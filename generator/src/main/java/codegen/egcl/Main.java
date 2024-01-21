@@ -10,11 +10,9 @@ public class Main {
     public static void main(String[] args) {
         System.out.println(Arrays.asList(args));
         try {
-            String path = args[0];
             EGCLScript script = new EGCLScript(args[2]);
             try {
                 File file_java = new File(args[1] + "/Verification.java");
-                ;
 
                 BufferedWriter output = new BufferedWriter(new FileWriter(file_java));
                 output.write(script.getVerificationCode());
