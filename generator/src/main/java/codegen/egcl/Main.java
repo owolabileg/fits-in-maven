@@ -11,7 +11,7 @@ public class Main {
         System.out.println(Arrays.asList(args));
         try {
             String path = args[0];
-            EGCLScript script = new EGCLScript(Main.class.getResource("/properties.egcl").getFile().toString());
+            EGCLScript script = new EGCLScript(args[2]);
             try {
                 File file_java = new File(args[1] + "/Verification.java");
                 ;
