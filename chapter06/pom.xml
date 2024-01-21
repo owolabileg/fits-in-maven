@@ -86,7 +86,7 @@
                             <mainClass>codegen.egcl.Main</mainClass>
                             <arguments>
                                 <argument>${project.basedir}</argument>
-                                <argument>${project.build.directory}</argument>
+                                <argument>${project.basedir}/src/main/java/monitoredfits/rv</argument>
                             </arguments>
                         </configuration>
                     </execution>
