@@ -20,6 +20,7 @@
         <module>generator</module>
         <module>chapter06-solutions</module>
         <module>chapter06-parameterized</module>
+        <module>chapter06-parameterized-solutions</module>
     </modules>
 
     <dependencies>
