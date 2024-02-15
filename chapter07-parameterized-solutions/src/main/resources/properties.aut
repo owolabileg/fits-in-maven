@@ -1,0 +1,87 @@
+VERIFICATIONCODE
+
+package monitoredfits.rv;
+
+import java.util.HashMap;
+
+import monitoredfits.fits.UserInfo;
+import monitoredfits.fits.UserSession;
+
+public class Verification {
+
+	static public HashMap<UserInfo,Integer> countSessions;
+
+	static public void setupVerification() {
+
+	}
+
+}
+
+PRELUDE
+
+package monitoredfits.rv;
+
+import monitoredfits.assertion.Assertion;
+import monitoredfits.fits.UserInfo;
+import monitoredfits.fits.UserSession;
+import java.util.HashMap;
+
+
+
+AUTOMATA
+
+
+// P6
+property foreach target (UserInfo u) starting NonGreylisted keep (Integer count defaultTo 0) {
+   NonGreylisted >>> before UserInfo.makeGreylisted(..) target (UserInfo u) | -> {
+	            count = 0;
+	         }
+	     >>> Greylisted
+   Greylisted >>> after UserInfo.depositTo(..) target (UserInfo u) | -> {
+	            count = count + 1;
+             }
+         >>> Greylisted
+    Greylisted >>> before UserInfo.makeBlacklisted(..) target (UserInfo u) ->  {
+    			count = 0;
+    		}
+         >>> NonGreylisted
+    Greylisted >>> before UserInfo.makeWhitelisted(..) target (UserInfo u)
+                 |  count >= 3
+         >>> NonGreylisted
+    Greylisted >>> before UserInfo.makeWhitelisted(..) target (UserInfo u)
+                 |  count < 3
+          >>> Bad[P6 violated]
+}
+
+// P5
+property foreach target (UserInfo u) starting Disabled {
+    Disabled >>> before UserInfo.withdrawFrom(..) target (UserInfo u)
+             >>> Bad[P5 violated]
+    Disabled >>> before UserInfo.makeEnabled(..) target (UserInfo u)
+             >>> Enabled
+    Enabled  >>> before UserInfo.makeDisabled(..) target (UserInfo u)
+             >>> Disabled
+}
+
+// P9
+property foreach target (UserInfo u) starting Start keep (Integer countSessions defaultTo 0) {
+    Start >>> before UserInfo.openSession(..) target (UserInfo u)
+          | countSessions >= 3
+          >>> Bad[P9 violated]
+    Start >>> before UserInfo.openSession(..) target (UserInfo u)
+          |-> { countSessions = countSessions + 1; }
+          >>> Start
+    Start >>> before UserInfo.closeSession(..) target (UserInfo u)
+          |-> { countSessions = countSessions - 1; }
+          >>> Start
+}
+
+// P10
+property foreach target (UserSession s) starting Logout {
+    Logout >>> before UserSession.log(..) target (UserSession s)
+           >>> Bad[P10 violated]
+    Logout >>> before UserSession.openSession(..) target (UserSession s)
+           >>> Login
+    Login  >>> before UserSession.closeSession(..) target (UserSession s)
+           >>> Logout
+}
