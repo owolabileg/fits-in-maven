@@ -79,11 +79,11 @@
                             <goal>java</goal>
                         </goals>
                         <configuration>
-                            <mainClass>codegen.egcl.Main</mainClass>
+                            <mainClass>codegen.automata.Main</mainClass>
                             <arguments>
                                 <argument>${project.basedir}</argument>
                                 <argument>${project.basedir}/src/main/java/monitoredfits/rv</argument>
-                                <argument>${project.basedir}/src/main/resources/properties.egcl</argument>
+                                <argument>${project.basedir}/src/main/resources/properties.aut</argument>
                             </arguments>
                         </configuration>
                     </execution>
