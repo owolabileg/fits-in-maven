@@ -17,8 +17,8 @@ public class Transition {
 	// Constructors
 	// Rule with all values
 	public Transition(Boolean before, String source_state, String destination_state, String event,
-			ArrayList<String> vars, ArrayList<String> types, String target_var, String target_type, String condition,
-			String action, String destination_text) {
+					  ArrayList<String> vars, ArrayList<String> types, String target_var, String target_type, String condition,
+					  String action, String destination_text) {
 
 		this.rule = new Rule(before, event, vars, types, target_var, target_type, condition, action);
 
@@ -29,14 +29,14 @@ public class Transition {
 
 	// Automaton with parameters but no target
 	public Transition(Boolean before, String source_state, String destination_state, String event,
-			ArrayList<String> vars, ArrayList<String> types, String condition, String action, String destination_text) {
+					  ArrayList<String> vars, ArrayList<String> types, String condition, String action, String destination_text) {
 		this(before, source_state, destination_state, event, vars, types, null, null, condition, action,
 				destination_text);
 	}
 
 	// Automaton with no target and no parameters
 	public Transition(Boolean before, String source_state, String destination_state, String event, String condition,
-			String action, String destination_text) {
+					  String action, String destination_text) {
 		this(before, source_state, destination_state, event, new ArrayList<String>(), new ArrayList<String>(), null,
 				null, condition, action, destination_text);
 	}

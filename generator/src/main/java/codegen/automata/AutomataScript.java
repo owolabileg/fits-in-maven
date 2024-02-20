@@ -34,31 +34,31 @@ public class AutomataScript {
 				line = line.trim();
 
 				switch (readMode) {
-				case 0:
-					if (line.equals("VERIFICATIONCODE")) {
-						readMode = 1;
-					} else if (!(line.equals("") || line.startsWith("//"))) {
-						throw (new Exception("Non-comment line before VERIFICATIONMODULE"));
-					}
-					break;
-				case 1:
-					if (line.equals("PRELUDE")) {
-						readMode = 2;
-					} else {
-						code_txt += line + "\n";
-					}
-					break;
-				case 2:
-					if (line.equals("AUTOMATA")) {
-						readMode = 3;
-					} else {
-						prelude_txt += line + "\n";
-					}
-					break;
-				case 3:
-					if (!line.startsWith("//")) {
-						automata_txt += line + " ";
-					}
+					case 0:
+						if (line.equals("VERIFICATIONCODE")) {
+							readMode = 1;
+						} else if (!(line.equals("") || line.startsWith("//"))) {
+							throw (new Exception("Non-comment line before VERIFICATIONMODULE"));
+						}
+						break;
+					case 1:
+						if (line.equals("PRELUDE")) {
+							readMode = 2;
+						} else {
+							code_txt += line + "\n";
+						}
+						break;
+					case 2:
+						if (line.equals("AUTOMATA")) {
+							readMode = 3;
+						} else {
+							prelude_txt += line + "\n";
+						}
+						break;
+					case 3:
+						if (!line.startsWith("//")) {
+							automata_txt += line + " ";
+						}
 				}
 				line = br.readLine();
 			}
@@ -113,9 +113,42 @@ public class AutomataScript {
 
 	// toEGCL
 	public String toEGCL() throws Exception {
+		String result = "VERIFICATIONCODE\n\n" + verificationCode;
 
-//TODO
-		return "";
+		result = result.substring(0, result.lastIndexOf("}"));
+
+		String automataInitialisations = "";
+
+		for (Automaton a : automata) {
+			automataInitialisations += "\n\n" + a.toEGCLSetupVerificationCodeDecl();
+		}
+
+		int indx = result.indexOf("Properties.setupVerification()");
+		result = result.substring(0, indx + 32) + automataInitialisations + result.substring(indx + 32);
+
+		for (Automaton a : automata) {
+			result += "\n\n" + a.toEGCLVerificationCodeDecl();
+		}
+
+		result += "\n}";
+
+		result += "\n\nPRELUDE\n\n" + prelude + "\n\nRULES\n\n";
+
+		for (Automaton a : automata) {
+			result += a.toEGCL() + "\n";
+		}
+
+		result += "before *.*(..) | -> { ";
+		for (Automaton a : automata)
+			result += "\n" + a.getTriggerReset();
+
+		result += "}\n\nafter *.*(..) | -> { ";
+		for (Automaton a : automata)
+			result += "\n" + a.getTriggerReset();
+
+		result += "\n}\n";
+
+		return result;
 	}
 
 }
