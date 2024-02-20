@@ -5,12 +5,15 @@ import monitoredfits.fits.UserInfo;
 
 public aspect Properties {
 
-	before (): call(* BackEnd.initialise()) {
-		Verification.fitsInitialisation();
+	before (): execution(* BackEnd.initialise()) {
+		// Verification.fitsInitialisation();
+        int x = 3;
+        int y = x * 4;
 	}
 
-	before (): call(* UserInfo.openSession()) {
+	before (): call(* UserInfo+.openSession*()) {
 		Verification.fitsOpenSession();
+
 	}
 
 }
