@@ -1,5 +1,6 @@
 package monitoredfits.fits;
 
+import monitoredfits.rv.Verification;
 import org.junit.Before;
 
 public class BaseTest {
@@ -14,5 +15,6 @@ public class BaseTest {
     @Before
     public void reset() {
         transactionsystem.setup();
+        Verification.setupVerification();
     }
 }
