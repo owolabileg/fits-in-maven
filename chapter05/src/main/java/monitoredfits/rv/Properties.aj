@@ -6,9 +6,7 @@ import monitoredfits.fits.UserInfo;
 public aspect Properties {
 
 	before (): execution(* BackEnd.initialise()) {
-		// Verification.fitsInitialisation();
-        int x = 3;
-        int y = x * 4;
+		 Verification.fitsInitialisation();
 	}
 
 	before (): call(* UserInfo+.openSession*()) {
