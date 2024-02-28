@@ -1,94 +1,56 @@
+
 package monitoredfits.rv;
 
-import codegen.re.structure.Any;
-import codegen.re.structure.Event;
-import codegen.re.structure.MatchEvent;
-import codegen.re.structure.MatchEventComplement;
-import codegen.re.structure.RegExp;
-import codegen.re.structure.Repetition;
-import codegen.re.structure.SequentialComposition;
+import codegen.re.structure.*;
 
 public class Verification {
 
-	public static Boolean initialised = false;
-	static public RegExp currentRegExp60e53b93;
-	static public Boolean triggered60e53b93;
+    public static Boolean initialised = false;
+    static public RegExp currentRegExp535e394e;
+    static public Boolean triggered535e394e;
 
-	static public RegExp currentRegExp5e2de80c;
-	static public Boolean triggered5e2de80c;
 
-	static public RegExp currentRegExp1d44bcfa;
-	static public Boolean triggered1d44bcfa;
+    static public RegExp currentRegExp4479ef22;
+    static public Boolean triggered4479ef22;
 
-	static public RegExp currentRegExp266474c2;
-	static public Boolean triggered266474c2;
 
-	static public RegExp currentRegExp6f94fa3e;
-	static public Boolean triggered6f94fa3e;
+    static public RegExp currentRegExp2a6a178c;
+    static public Boolean triggered2a6a178c;
 
-	static public void setupVerification() {
 
-		currentRegExp60e53b93 = new SequentialComposition(
-				new SequentialComposition(
-						new SequentialComposition(
-								new Repetition(new MatchEventComplement(new Event("before", "BackEnd.initialise"))),
-								new Repetition(new SequentialComposition(
-										new SequentialComposition(
-												new MatchEvent(new Event("before", "BackEnd.initialise")),
-												new Repetition(new MatchEventComplement(
-														new Event("before", "BackEnd.shutdown")))),
-										new MatchEvent(new Event("before", "BackEnd.shutdown"))))),
-						new Repetition(new MatchEventComplement(new Event("before", "BackEnd.initialise")))),
-				new MatchEvent(new Event("before", "UserInfo.openSession")));
-		triggered60e53b93 = false;
+    static public RegExp currentRegExp41d1dc80;
+    static public Boolean triggered41d1dc80;
 
-		currentRegExp5e2de80c = new Repetition(
-				new SequentialComposition(
-						new SequentialComposition(
-								new SequentialComposition(
-										new Repetition(
-												new MatchEventComplement(new Event("before", "UserInfo.makeDisabled"))),
-										new MatchEvent(new Event("before", "UserInfo.makeDisabled"))),
-								new Repetition(new MatchEventComplement(new Event("before", "UserInfo.withdrawFrom")))),
-						new MatchEvent(new Event("before", "UserInfo.makeEnabled"))));
-		triggered5e2de80c = false;
 
-		currentRegExp1d44bcfa = new SequentialComposition(
-				new SequentialComposition(
-						new SequentialComposition(new Repetition(new Any()),
-								new MatchEvent(new Event("before", "makeDisabled"))),
-						new Repetition(new MatchEventComplement(new Event("before", "makeEnabled")))),
-				new MatchEvent(new Event("before", "withdrawFrom")));
-		triggered1d44bcfa = false;
+    static public RegExp currentRegExp636719bd;
+    static public Boolean triggered636719bd;
 
-		currentRegExp266474c2 = new SequentialComposition(
-				new SequentialComposition(
-						new SequentialComposition(
-								new Repetition(
-										new MatchEventComplement(new Event("before", "UserSession.openSession"))),
-								new Repetition(new SequentialComposition(
-										new SequentialComposition(
-												new MatchEvent(new Event("before", "UserSession.openSession")),
-												new Repetition(new MatchEventComplement(
-														new Event("before", "UserSession.closeSession")))),
-										new MatchEvent(new Event("before", "UserSession.closeSession"))))),
-						new Repetition(new MatchEventComplement(new Event("before", "UserSession.openSession")))),
-				new MatchEvent(new Event("before", "UserSession.log")));
-		triggered266474c2 = false;
+    static public void setupVerification() {
 
-		currentRegExp6f94fa3e = new Repetition(
-				new SequentialComposition(
-						new SequentialComposition(
-								new SequentialComposition(
-										new Repetition(
-												new MatchEventComplement(new Event("before", "UserSession.log"))),
-										new MatchEvent(new Event("before", "UserSession.openSession"))),
-								new Repetition(
-										new MatchEventComplement(new Event("before", "UserSession.closeSession")))),
-						new MatchEvent(new Event("before", "UserSession.closeSession"))));
-		triggered6f94fa3e = false;
+        currentRegExp535e394e = new SequentialComposition(new SequentialComposition(new SequentialComposition(new Repetition(new MatchEventComplement(new Event("before", "BackEnd.initialise"))), new Repetition(new SequentialComposition(new SequentialComposition(new MatchEvent(new Event("before", "BackEnd.initialise")), new Repetition(new MatchEventComplement(new Event("before", "BackEnd.shutdown")))), new MatchEvent(new Event("before", "BackEnd.shutdown"))))), new Repetition(new MatchEventComplement(new Event("before", "BackEnd.initialise")))), new MatchEvent(new Event("before", "UserInfo.openSession")));
+        triggered535e394e = false;
 
-		Properties.setupVerification();
-		initialised = true;
-	}
+
+        currentRegExp4479ef22 = new Repetition(new SequentialComposition(new SequentialComposition(new SequentialComposition(new Repetition(new MatchEventComplement(new Event("before", "UserInfo.makeDisabled"))), new MatchEvent(new Event("before", "UserInfo.makeDisabled"))), new Repetition(new MatchEventComplement(new Event("before", "UserInfo.withdrawFrom")))), new MatchEvent(new Event("before", "UserInfo.makeEnabled"))));
+        triggered4479ef22 = false;
+
+
+        currentRegExp2a6a178c = new SequentialComposition(new SequentialComposition(new SequentialComposition(new Repetition(new Any()), new MatchEvent(new Event("before", "makeDisabled"))), new Repetition(new MatchEventComplement(new Event("before", "makeEnabled")))), new MatchEvent(new Event("before", "withdrawFrom")));
+        triggered2a6a178c = false;
+
+
+        currentRegExp41d1dc80 = new SequentialComposition(new SequentialComposition(new SequentialComposition(new Repetition(new MatchEventComplement(new Event("before", "UserSession.openSession"))), new Repetition(new SequentialComposition(new SequentialComposition(new MatchEvent(new Event("before", "UserSession.openSession")), new Repetition(new MatchEventComplement(new Event("before", "UserSession.closeSession")))), new MatchEvent(new Event("before", "UserSession.closeSession"))))), new Repetition(new MatchEventComplement(new Event("before", "UserSession.openSession")))), new MatchEvent(new Event("before", "UserSession.log")));
+        triggered41d1dc80 = false;
+
+
+        currentRegExp636719bd = new Repetition(new SequentialComposition(new SequentialComposition(new SequentialComposition(new Repetition(new MatchEventComplement(new Event("before", "UserSession.log"))), new MatchEvent(new Event("before", "UserSession.openSession"))), new Repetition(new MatchEventComplement(new Event("before", "UserSession.closeSession")))), new MatchEvent(new Event("before", "UserSession.closeSession"))));
+        triggered636719bd = false;
+
+
+        Properties.setupVerification();
+        initialised = true;
+    }
 }
+
+
+

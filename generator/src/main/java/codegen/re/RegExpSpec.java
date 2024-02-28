@@ -41,7 +41,7 @@ public class RegExpSpec {
 
 	public String getId() {
 		// obtain a unique number
-		return super.toString().substring(14);
+		return super.toString().substring(22);
 
 	}
 

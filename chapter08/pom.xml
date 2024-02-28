@@ -78,11 +78,11 @@
                             <goal>java</goal>
                         </goals>
                         <configuration>
-                            <mainClass>codegen.automata.Main</mainClass>
+                            <mainClass>codegen.re.Main</mainClass>
                             <arguments>
                                 <argument>${project.basedir}</argument>
                                 <argument>${project.basedir}/src/main/java/monitoredfits/rv</argument>
-                                <argument>${project.basedir}/src/main/resources/properties.aut</argument>
+                                <argument>${project.basedir}/src/main/resources/properties.re</argument>
                             </arguments>
                         </configuration>
                     </execution>
