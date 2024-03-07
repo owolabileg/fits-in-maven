@@ -127,8 +127,8 @@ public class REScript {
 
 	public String toEGCL() throws Exception {
 
-		String result = "\n\nVERIFICATIONCODE" + "\n\npackage rv;";
-		result += "\n\nimport re.structure.*;";
+		String result = "\n\nVERIFICATIONCODE" + "\n\npackage monitoredfits.rv;";
+		result += "\n\nimport codegen.re.parameterized.structure.*;";
 		result += "\n\npublic class Verification {" + "\n\n public static Boolean initialised = false;";
 
 		for (RegExpSpec a : regExps)
@@ -166,5 +166,4 @@ public class REScript {
 		return result;
 
 	}
-
 }

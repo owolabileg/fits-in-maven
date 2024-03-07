@@ -4,14 +4,14 @@ VERIFICATIONCODE
 
 PRELUDE
 
-package rv;
+package monitoredfits.rv;
 
-import re.structure.*;
+import codegen.re.parameterized.structure.*;
 import java.util.HashMap;
 
-import fits.*;
+import monitoredfits.fits.*;
 
-import assertion.Assertion;
+import monitoredfits.assertion.Assertion;
 
 
 REGULAREXPRESSIONS
