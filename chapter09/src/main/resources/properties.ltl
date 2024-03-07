@@ -1,0 +1,29 @@
+VERIFICATIONCODE
+
+
+//ignored for LTL
+
+PRELUDE
+
+package monitoredfits.rv;
+
+import java.util.HashMap;
+
+import codegen.ltl.structure.*;
+import monitoredfits.fits.*;
+import monitoredfits.assertion.Assertion;
+
+LTL
+
+// P2
+// The transaction system must be initialised before any user logs in.
+
+property good behaviour {
+(not [before UserInfo.openSession]) Until [after BackEnd.initialise]
+}
+
+  
+  
+  
+  
+
