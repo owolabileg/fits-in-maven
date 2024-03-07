@@ -24,6 +24,7 @@
         <module>chapter07</module>
         <module>chapter08</module>
         <module>chapter08-parameterized</module>
+        <module>chapter09</module>
     </modules>
 
     <dependencies>
