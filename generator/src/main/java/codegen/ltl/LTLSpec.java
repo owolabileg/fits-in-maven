@@ -56,7 +56,7 @@ public class LTLSpec {
 
 	public String getId() {
 		// obtain a unique number
-		return super.toString().substring(14);
+		return super.toString().substring(20);
 
 	}
 

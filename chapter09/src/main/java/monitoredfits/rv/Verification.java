@@ -5,17 +5,19 @@ import codegen.ltl.structure.*;
 
 public class Verification {
 
-	public static Boolean initialised = false;
-	static public LTL currentLTLe53b93;
-	static public Boolean triggerede53b93;
+public static Boolean initialised = false;
+static public LTL currentLTL5bb9e363;
+static public Boolean triggered5bb9e363;
 
-	static public void setupVerification() {
+static public void setupVerification() {
 
-		currentLTLe53b93 = new Until(new Not(new MatchEvent(new Event("before", "UserInfo.openSession"))),
-				new MatchEvent(new Event("after", "BackEnd.initialise")));
-		triggerede53b93 = false;
+currentLTL5bb9e363 = new Until(new Not(new MatchEvent(new Event("before","UserInfo.openSession"))),new MatchEvent(new Event("after","BackEnd.initialise")));
+triggered5bb9e363 = false;
 
-		Properties.setupVerification();
-		initialised = true;
-	}
-}
+
+
+Properties.setupVerification();
+initialised = true;} }
+
+
+

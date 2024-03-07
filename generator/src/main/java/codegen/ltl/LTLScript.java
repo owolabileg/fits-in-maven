@@ -119,8 +119,8 @@ public class LTLScript {
 
 	public String toEGCL() throws Exception {
 
-		String result = "\n\nVERIFICATIONCODE" + "\n\npackage rv;";
-		result += "\n\nimport ltl.structure.*;";
+		String result = "\n\nVERIFICATIONCODE" + "\n\npackage monitoredfits.rv;";
+		result += "\n\nimport codegen.ltl.structure.*;";
 		result += "\n\npublic class Verification {" + "\n\n public static Boolean initialised = false;";
 
 		for (LTLSpec a : ltlSpecs)
