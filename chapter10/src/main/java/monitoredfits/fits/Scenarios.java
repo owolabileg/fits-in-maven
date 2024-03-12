@@ -1,7 +1,7 @@
 package monitoredfits.fits;
 
 import monitoredfits.rv.Verification;
-import timed.timers.TimerManager;
+import codegen.timed.timers.TimerManager;
 
 public class Scenarios {
 
