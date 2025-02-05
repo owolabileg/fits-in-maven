@@ -61,6 +61,7 @@ public class UserInfo {
 		return accounts;
 	}
 
+	// TODO: textbook says it returns "active sessions", but it returns all sessions
 	public ArrayList<UserSession> getSessions() {
 		return sessions;
 	}
@@ -169,6 +170,7 @@ public class UserInfo {
 		return (sid);
 	}
 
+	// TODO: should this method also remove session with `sid` from `sessions`?
 	public void closeSession(Integer sid) {
 		UserSession s = getSession(sid);
 

@@ -2,6 +2,9 @@ package fits.chapter03;
 
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 public class ViolatingTest extends BaseTest {
     @Test
     public void testP1OnlyUsersInArgentinaCanBeGold() {
@@ -9,6 +12,8 @@ public class ViolatingTest extends BaseTest {
         uid = frontend.ADMIN_createUser("Fred", "France");
         frontend.ADMIN_enableUser(uid);
         frontend.ADMIN_makeGoldUser(uid);
+//        assertTrue(frontend.getBackEnd().getUserInfo(uid).status.equals(UserInfo.UserType.GOLD) &&
+//                frontend.getBackEnd().getUserInfo(uid).getCountry().equals("Argentina"));
     }
 
     @Test

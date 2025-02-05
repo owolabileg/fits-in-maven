@@ -56,6 +56,7 @@ public class FrontEnd {
 
 	// * Change user type (Gold, Silver or Normal User)
 	public void ADMIN_makeGoldUser(Integer uid) {
+		// assert backend.getUserInfo(uid).getCountry().equals("Argentina");
 		backend.getUserInfo(uid).makeGoldUser();
 	}
 
@@ -90,11 +91,13 @@ public class FrontEnd {
 	}
 
 	// * Logout of the chosen session
+	// TODO: what happens if the user is not already logged in?
 	public void USER_logout(Integer uid, Integer sid) {
 		backend.getUserInfo(uid).closeSession(sid);
 	}
 
 	// * Freeze own user account
+	// TODO: what happens if the user is not enabled, or is not in the system?
 	public Boolean USER_freezeUser(Integer uid, Integer sid) {
 		UserInfo u = backend.getUserInfo(uid);
 		u.getSession(sid).log("Freeze account");
