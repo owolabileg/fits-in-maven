@@ -44,16 +44,16 @@
                     <Xlint>ignore</Xlint>
                     <encoding>UTF-8 </encoding>
                 </configuration>
-                <executions>
-                    <execution>
-                        <goals>
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
                             <!-- use this goal to weave all your main classes -->
-                            <goal>compile</goal>
+<!--                            <goal>compile</goal>-->
                             <!-- use this goal to weave all your test classes -->
-                            <goal>test-compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
+<!--                            <goal>test-compile</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
             </plugin>
 <!--            <plugin>-->
 <!--                <groupId>org.apache.maven.plugins</groupId>-->
