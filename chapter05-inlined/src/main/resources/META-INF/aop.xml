@@ -1,0 +1,9 @@
+<aspectj>
+    <aspects>
+        <aspect name="monitoredfits.rv.Properties"/>
+        <weaver options="-verbose -showWeaveInfo">
+            <dump within="monitoredfits.fits..*" beforeandafter="true"/>
+            <include within="monitoredfits.fits..*"/>
+        </weaver>
+    </aspects>
+</aspectj>
